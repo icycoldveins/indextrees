@@ -86,11 +86,26 @@ public class IndexTree {
 	// remove the word and all the entries for the word
 	// This should be no different than the regular technique.
 	private IndexNode delete(IndexNode root, String word) {
-		if(root==null){
+		IndexNode temp,temp2;
+
+		if(word.equals(root.word)){
+			IndexNode left,right;
+			left=root.left;
+			right=root.right;
+		
+		if(left==null&& right==null){
 			return null;
 		}
-		if(root.word.compareTo())
+		else if(left==null&& right!=null){
+			return right;
 		}
+		
+	}
+}
+			
+		
+
+		
 
 	// prints all the words in the index in inorder order
 	// To successfully print it out
