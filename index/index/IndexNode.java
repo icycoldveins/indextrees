@@ -1,4 +1,4 @@
-package index;
+package index.index;
 
 import java.util.List;
 
