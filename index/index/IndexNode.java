@@ -1,4 +1,4 @@
-package index.index;
+package index;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +35,8 @@ public class IndexNode  {
 	// string must be one line
 	
 	public String toString(){
-		return "Word:"+word+"Occurrences:"+occurences+"line number:"+list.toString();
-	}
+		return "Word: "+word+" Occurrences: "+occurences+" line number: "+list.toString();
+	} 
 	
 	
 	
