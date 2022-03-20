@@ -1,5 +1,5 @@
 package index.index;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class IndexNode  {
@@ -20,7 +20,13 @@ public class IndexNode  {
 	// Constructors
 	// Constructor should take in a word and a line number
 	// it should initialize the list and set occurrences to 1
-	
+	public IndexNode(String word,int lineNumber){
+		list=new ArrayList();
+		this.word=word;
+		this.occurences=1;
+		list.add(lineNumber);
+
+	}
 	
 	
 	
@@ -29,7 +35,7 @@ public class IndexNode  {
 	// string must be one line
 	
 	public String toString(){
-		return "";
+		return "Word:"+word+"Occurrences:"+occurences+"line number:"+list.toString();
 	}
 	
 	

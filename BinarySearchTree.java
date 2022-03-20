@@ -1,6 +1,7 @@
 public class BinarySearchTree<E extends Comparable<E>> {
     private int size;
     private Node<E> root;
+    //exists
 
     public BinarySearchTree() {
         this.root = null;
@@ -11,7 +12,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return size;
 
     }
-
     public boolean contains(E item) {
         return contains(this.root, item);
     }
@@ -52,7 +52,6 @@ public class BinarySearchTree<E extends Comparable<E>> {
             return root;
         }
     }
-
     public void remove(E item) {
         this.root = this.remove(this.root, item);
     }
@@ -153,4 +152,5 @@ public class BinarySearchTree<E extends Comparable<E>> {
         bst.add(4);
         System.out.println(bst);
     }
+
 }
