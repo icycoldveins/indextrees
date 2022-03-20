@@ -1,4 +1,7 @@
-package index.index;
+package index;
+
+import java.io.*;
+import java.util.Scanner;
 
 // Your class. Notice how it has no generics.
 // This is because we use generics when we have no idea what kind of data we are getting
@@ -17,7 +20,7 @@ public class IndexTree {
 	// this is your wrapper method
 	// it takes in two pieces of data rather than one
 	// call your recursive add method
-	public IndexTree(String word, int lineNumber) {
+	public IndexTree() {
 
 	}
 
@@ -35,9 +38,9 @@ public class IndexTree {
 			return root = new IndexNode(word, lineNumber);
 		}
 
-		if (word.compareTo(root.word) < 0) {
+		if (word.toLowerCase().compareTo(root.word) < 0) {
 			root.left = add(root.left, word, lineNumber);
-		} else if (word.compareTo(root.word) > 0) {
+		} else if (word.toLowerCase().compareTo(root.word) > 0) {
 			root.right = add(root.right, word, lineNumber);
 		} else {
 			if (!root.list.contains(lineNumber)) {
@@ -53,14 +56,14 @@ public class IndexTree {
 		if (root == null) {
 			return false;
 		}
-		IndexNode node = root;
-		while (node != null) {
-			if (node.word.equalsIgnoreCase(word)) {
+		IndexNode temp = root;
+		while (temp != null) {
+			if (temp.word.toLowerCase().equalsIgnoreCase(word)) {
 				return true;
-			} else if (word.compareTo(node.word) < 0) {
-				node = node.left;
+			} else if (word.toLowerCase().compareTo(temp.word) < 0) {
+				temp = temp.left;
 			} else {
-				node = node.right;
+				temp = temp.right;
 			}
 		}
 		return false;
@@ -86,9 +89,9 @@ public class IndexTree {
 	// remove the word and all the entries for the word
 	// This should be no different than the regular technique.
 	private IndexNode delete(IndexNode root, String word) {
-		IndexNode temp,temp2;
+		IndexNode equalscase,elsecase;
 
-		if(word.equals(root.word)){
+		if(word.toLowerCase().equals(root.word)){
 			IndexNode left,right;
 			left=root.left;
 			right=root.right;
@@ -99,8 +102,28 @@ public class IndexTree {
 		else if(left==null&& right!=null){
 			return right;
 		}
-		
+		else if(right==null&&left!=null){
+			return left;
+		}
+		else{
+			equalscase=left;
+			while(equalscase.right!=null){
+				equalscase=equalscase.right;
+			}
+			equalscase.right=right;
+			return left;
+		}
+
 	}
+	else if(word.toLowerCase().compareTo(root.word)<0){
+		elsecase=delete(root.left,word);
+		root.left=elsecase;
+	}
+	else{
+		elsecase=delete(root.right,word);
+		root.right=elsecase;
+	}
+	return root;
 }
 			
 		
@@ -112,16 +135,47 @@ public class IndexTree {
 	// this should print out each word followed by the number of occurrences and the
 	// list of all occurrences
 	// each word and its data gets its own line
-	public void printIndex() {
-
+	public void printIndex(){
+		printIndex(root);
 	}
+	public void printIndex(IndexNode root) {
+		if(root==null){
+			return;
+		}
+		printIndex(root.left);
+		System.out.println(root);
+		printIndex(root.right); 
+	}
+
 
 	public static void main(String[] args) {
 		// add all the words to the tree
-
+		int count=0;
+		IndexTree index=new IndexTree();
 		// print out the index
+		String fileName = "pg100.txt";
+        try {
+            Scanner scanner = new Scanner(new File(fileName));
+            while (scanner.hasNextLine()) {
+				count++;
+                String line = scanner.nextLine();
+                System.out.println(line);
+                String[] words = line.split("\\s+");
+                for (String word : words) {
+					word=word.replaceAll("\\p{Punct}", "");
+					index.add(word,count);
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
 
 		// test removing a word from the index
+		index.printIndex();
+    }
 
-	}
+
 }
+
